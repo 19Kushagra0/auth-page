@@ -130,98 +130,147 @@ export default function page() {
 
   return (
     <div onMouseMove={handleMouseMove} className="page">
-      <div className="image relative">
+      <div className="loginCard">
+        {/* ── Character Section ── */}
+        <div className="characterArea ">
+          <div className="image">
+            <Image
+              src={IMAGES[image]}
+              alt="character face"
+              width={220}
+              height={220}
+              className="hero"
+              style={{ width: "220px", height: "220px", objectFit: "contain" }}
+            />
+
+            {image === "close_eyes" ? null : (
+              <>
+                {/* Left eye */}
+                <div
+                  ref={leftEyeRef}
+                  style={{ top: "55px", left: "73.5px" }}
+                  className={styles.eye}
+                >
+                  <div
+                    ref={leftPupilRef}
+                    style={{ top: "50%", left: "50%" }}
+                    className={styles.pupil}
+                  />
+                </div>
+
+                {/* Right eye */}
+                <div
+                  ref={rightEyeRef}
+                  style={{ top: "55px", left: "107.5px" }}
+                  className={styles.eye}
+                >
+                  <div
+                    ref={rightPupilRef}
+                    style={{ top: "50%", left: "50%" }}
+                    className={styles.pupil}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
         <Image
-          src={IMAGES[image]}
-          alt="character face"
-          width={250}
-          height={250}
-          className="hero"
-          style={{ width: "250px", height: "250px", objectFit: "contain" }}
+          className="portal"
+          src="/images/portal.png"
+          alt="portal"
+          width={220}
+          height={220}
         />
 
-        {image === "close_eyes" ? (
-          ""
-        ) : (
-          <>
-            <div
-              ref={leftEyeRef}
-              style={{
-                top: "66px",
-                left: "89px",
-              }}
-              className={styles.eye}
-            >
-              <div
-                ref={leftPupilRef}
-                style={{
-                  top: "50%",
-                  left: "50%",
-                }}
-                className={styles.pupil}
-              ></div>
-            </div>
+        {/* ── Form Section ── */}
+        <div className="loginPage">
+          <h1 className="loginTitle">Welcome Back!</h1>
+          <p className="loginSubtitle">Sign in to continue</p>
 
-            {/* Right eye */}
-            <div
-              ref={rightEyeRef}
-              style={{
-                top: "66px",
-                left: "123px",
-              }}
-              className={styles.eye}
-            >
-              <div
-                ref={rightPupilRef}
-                style={{
-                  top: "50%",
-                  left: "50%",
+          {/* Username */}
+          <div className="fieldGroup">
+            <label className="fieldLabel" htmlFor="username">
+              Username
+            </label>
+            <div className="inputWrapper">
+              {/* Person icon */}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input
+                id="username"
+                className="loginInput"
+                type="text"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setImage("normal");
                 }}
-                className={styles.pupil}
-              ></div>
+              />
             </div>
-          </>
-        )}
-      </div>
+          </div>
 
-      <div className="loginPage flex flex-col items-right gap-4 p-4">
-        <label htmlFor="">Login</label>
-        <label className="gap-2 flex">
-          <input
-            className="bg-violet-500"
-            type="text"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-              setImage("normal");
+          {/* Password */}
+          <div className="fieldGroup">
+            <label className="fieldLabel" htmlFor="password">
+              Password
+            </label>
+            <div className="inputWrapper">
+              {/* Lock icon */}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <input
+                id="password"
+                className="loginInput"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setImage("close_eyes");
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="divider" />
+
+          <button
+            id="loginBtn"
+            onClick={handleLogin}
+            className={`loginButton${image === "scared" ? " danger" : ""}`}
+            onMouseEnter={() => {
+              if (image !== "scared") setImage("exited");
             }}
-          />
-          <span>Username</span>
-        </label>
-        <label className="gap-2 flex">
-          <input
-            className="bg-violet-500"
-            type="text"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setImage("close_eyes");
+            onMouseLeave={() => {
+              if (image !== "scared") setImage("normal");
             }}
-          />
-          <span>Password</span>
-        </label>
-        <button
-          onClick={handleLogin}
-          className="loginButton"
-          onMouseEnter={() => {
-            if (image !== "scared") setImage("exited");
-          }}
-          onMouseLeave={() => {
-            if (image !== "scared") setImage("normal");
-          }}
-        >
-          Login
-        </button>
+          >
+            Log In
+          </button>
+
+          <p className="loginFooter">
+            Don&apos;t have an account? <span>Sign up</span>
+          </p>
+        </div>
       </div>
     </div>
   );
