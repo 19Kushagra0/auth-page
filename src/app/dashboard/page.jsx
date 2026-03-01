@@ -4,6 +4,7 @@ export default function Dashboard() {
   return (
     <div
       className="min-h-screen w-full flex flex-col"
+      //
       style={{
         background: "#060a14",
         backgroundImage: `
