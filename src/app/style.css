@@ -1,0 +1,383 @@
+/* =============================
+   IMPORTS — Rick & Morty Vibe
+   Bangers = the show's title font feel
+   Nunito = clean rounded for body text
+   ============================= */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@600;700;800;900&display=swap');
+
+/* =============================
+   ROOT VARIABLES
+   Portal Green, Electric Yellow, Space Dark
+   ============================= */
+:root {
+  --portal-green:   #97CE4C;
+  --portal-glow:    #c8f06e;
+  --portal-dark:    #5a9c16;
+  --electric-blue:  #44d9e8;
+  --space-dark:     #060a14;
+  --space-mid:      #0d1a2e;
+  --card-bg:        #f5f0dc;       /* warm parchment — like the show's flat tones */
+  --card-border:    #111111;
+  --outline:        #111111;
+  --input-bg:       #ffffff;
+  --input-border:   #111111;
+  --text-dark:      #111111;
+  --text-muted:     #555555;
+  --danger-red:     #e63946;
+  --danger-dark:    #c1121f;
+  --yellow:         #f9c74f;
+  --outline-w:      3px;
+  --shadow-offset:  5px;
+  --radius-comic:   4px 18px 6px 14px / 10px 4px 14px 6px; /* wobbly hand-drawn feel */
+  --radius-btn:     6px 20px 8px 16px / 12px 6px 16px 8px;
+  --font-title:     'Bangers', cursive;
+  --font-body:      'Nunito', sans-serif;
+}
+
+/* =============================
+   GLOBAL RESET
+   ============================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================
+   SPACE BACKGROUND
+   ============================= */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  background-color: var(--space-dark);
+  /* Stars via repeating radial gradients */
+  background-image:
+    radial-gradient(1px 1px at 12% 20%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 42% 8%,  #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 35%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 15%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 60%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 72%, #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 80%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 6%  85%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 90%, #fff 0%, transparent 100%),
+    radial-gradient(2px 2px at 92% 55%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 18% 44%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 63% 50%, rgba(255,255,255,0.5) 0%, transparent 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Portal glow in the corner */
+.page::before {
+  content: '';
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(151, 206, 76, 0.28) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: -100px;
+  right: -80px;
+  pointer-events: none;
+  z-index: 0;
+  animation: portalPulse 4s ease-in-out infinite alternate;
+}
+
+.page::after {
+  content: '';
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(68, 217, 232, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -60px;
+  left: -60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================
+   LOGIN CARD — Comic book style
+   Thick black border + offset hard shadow
+   ============================= */
+.loginCard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  background: var(--card-bg);
+  border: var(--outline-w) solid var(--outline);
+  border-radius: var(--radius-comic);
+  /* Hard comic-book offset shadow */
+  box-shadow:
+    var(--shadow-offset) var(--shadow-offset) 0px var(--outline),
+    10px 10px 0px rgba(151, 206, 76, 0.35);
+  animation: floatIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* =============================
+   CHARACTER AREA
+   ============================= */
+.characterArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+  padding-bottom: 4px;
+  position: relative;
+}
+
+/* Portal glow under character */
+.characterArea::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 10px;
+  background: radial-gradient(ellipse, rgba(151,206,76,0.55) 0%, transparent 80%);
+  border-radius: 50%;
+
+}
+
+.image {
+  position: relative;
+  display: inline-block;
+  filter: drop-shadow(3px 5px 0px rgba(0,0,0,0.55));
+  transition: filter 0.2s ease, transform 0.2s ease;
+  z-index: 5;
+
+}
+
+.image:hover {
+  filter: drop-shadow(4px 7px 0px rgba(0,0,0,0.7));
+  transform: translateY(-3px);
+}
+.portal{
+  position: absolute;
+top: 1%;
+  left: 20%;
+  z-index: 0;
+  transform: rotate(90deg);
+
+}
+/* =============================
+   FORM SECTION
+   ============================= */
+.loginPage {
+  width: 100%;
+  padding: 24px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Title — Bangers font like R&M lettering */
+.loginTitle {
+  font-family: var(--font-title);
+  font-size: 2.6rem;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1;
+  /* Green text stroke like the show's title card */
+  -webkit-text-stroke: 1.5px var(--portal-dark);
+  text-shadow:
+    3px 3px 0px var(--portal-green),
+    6px 6px 0px rgba(0,0,0,0.15);
+
+
+    z-index: 5;
+}
+
+/* Subtitle */
+.loginSubtitle {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-top: -10px;
+  letter-spacing: 0.04em;
+}
+
+/* Field group */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+/* Input wrapper */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper svg {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #666;
+  pointer-events: none;
+  transition: color 0.2s;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 11px 12px 11px 38px;
+  background: var(--input-bg);
+  border: var(--outline-w) solid var(--input-border);
+  border-radius: 4px 14px 4px 14px / 10px 4px 10px 4px;
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  caret-color: var(--portal-dark);
+  /* Comic-style inset shadow */
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,0.08), 2px 2px 0 var(--outline);
+}
+
+.loginInput::placeholder {
+  color: #aaa;
+  font-weight: 600;
+}
+
+.loginInput:focus {
+  border-color: var(--portal-dark);
+  box-shadow:
+    inset 2px 2px 0 rgba(0,0,0,0.08),
+    2px 2px 0 var(--portal-dark),
+    0 0 0 3px rgba(151, 206, 76, 0.35);
+}
+
+.inputWrapper:focus-within svg {
+  color: var(--portal-dark);
+}
+
+/* =============================
+   DIVIDER
+   ============================= */
+.divider {
+  height: 2px;
+  background: var(--outline);
+  border-radius: 2px;
+  margin: 2px 0;
+  opacity: 0.12;
+}
+
+/* =============================
+   LOGIN BUTTON — Comic book flat style
+   ============================= */
+.loginButton {
+  width: 100%;
+  padding: 13px 20px;
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+  background: var(--portal-green);
+  border: var(--outline-w) solid var(--outline);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  /* Hard comic offset shadow */
+  box-shadow: 4px 4px 0 var(--portal-dark), 4px 4px 0 var(--outline);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Press-down effect */
+.loginButton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--portal-dark), 6px 6px 0 var(--outline);
+}
+
+.loginButton:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--portal-dark);
+}
+
+/* Danger / scared state */
+.loginButton.danger {
+  background: var(--danger-red);
+  box-shadow: 4px 4px 0 var(--danger-dark), 4px 4px 0 var(--outline);
+  color: #fff;
+  animation: shake 0.4s ease;
+}
+
+.loginButton.danger:hover {
+  box-shadow: 6px 6px 0 var(--danger-dark), 6px 6px 0 var(--outline);
+}
+
+/* =============================
+   FOOTER
+   ============================= */
+.loginFooter {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 700;
+}
+
+.loginFooter span {
+  color: var(--portal-dark);
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.loginFooter span:hover {
+  color: var(--portal-green);
+}
+
+/* =============================
+   ANIMATIONS
+   ============================= */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(-1deg) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20%       { transform: translateX(-6px) rotate(-1deg); }
+  40%       { transform: translateX(6px) rotate(1deg); }
+  60%       { transform: translateX(-4px) rotate(-0.5deg); }
+  80%       { transform: translateX(4px) rotate(0.5deg); }
+}
+
+@keyframes portalPulse {
+  from { opacity: 0.7; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.12); }
+}
