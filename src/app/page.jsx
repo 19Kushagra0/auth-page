@@ -267,9 +267,9 @@ export default function page() {
             Log In
           </button>
 
-          <p className="loginFooter">
+          {/* <p className="loginFooter">
             Don&apos;t have an account? <span>Sign up</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
